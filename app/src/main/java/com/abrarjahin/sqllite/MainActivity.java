@@ -31,85 +31,86 @@ public class MainActivity extends Activity
     public void onClick(View view)          //This function is autometically called from XML if any button is called because each button is assigned with this function by onclick
     {
         int id = view.getId();
-        switch (id) {
-            case R.id.btnAdd: {
-                if (editRollno.getText().toString().trim().length() == 0 ||
-                        editName.getText().toString().trim().length() == 0 ||
-                        editMarks.getText().toString().trim().length() == 0) {
-                    showMessage("Error", "Please enter all values");
-                    return;
-                }
-                db.execSQL("INSERT INTO student VALUES('" + editRollno.getText() + "','" + editName.getText() +
-                        "','" + editMarks.getText() + "');");
-                showMessage("Success", "Record added");
-                clearText();
-            }
-            break;
-            case R.id.btnDelete: {
-                if (editRollno.getText().toString().trim().length() == 0) {
-                    showMessage("Error", "Please enter Rollno");
-                    return;
-                }
-                Cursor c = db.rawQuery("SELECT * FROM student WHERE rollno='" + editRollno.getText() + "'", null);
-                if (c.moveToFirst()) {
-                    db.execSQL("DELETE FROM student WHERE rollno='" + editRollno.getText() + "'");
-                    showMessage("Success", "Record Deleted");
-                } else {
-                    showMessage("Error", "Invalid Rollno");
-                }
-                clearText();
-            }
-            break;
-            case R.id.btnModify: {
-                if (editRollno.getText().toString().trim().length() == 0) {
-                    showMessage("Error", "Please enter Rollno");
-                    return;
-                }
-                Cursor c = db.rawQuery("SELECT * FROM student WHERE rollno='" + editRollno.getText() + "'", null);
-                if (c.moveToFirst()) {
-                    db.execSQL("UPDATE student SET name='" + editName.getText() + "',marks='" + editMarks.getText() +
-                            "' WHERE rollno='" + editRollno.getText() + "'");
-                    showMessage("Success", "Record Modified");
-                } else {
-                    showMessage("Error", "Invalid Rollno");
-                }
-                clearText();
-            }
-            break;
-            case R.id.btnView: {
-                if (editRollno.getText().toString().trim().length() == 0) {
-                    showMessage("Error", "Please enter Rollno");
-                    return;
-                }
-                Cursor c = db.rawQuery("SELECT * FROM student WHERE rollno='" + editRollno.getText() + "'", null);
-                if (c.moveToFirst()) {
-                    editName.setText(c.getString(1));
-                    editMarks.setText(c.getString(2));
-                } else {
-                    showMessage("Error", "Invalid Rollno");
+        switch (id)
+        {
+            case R.id.btnAdd:
+                {
+                    if (editRollno.getText().toString().trim().length() == 0 ||
+                            editName.getText().toString().trim().length() == 0 ||
+                            editMarks.getText().toString().trim().length() == 0) {
+                        showMessage("Error", "Please enter all values");
+                        return;
+                    }
+                    db.execSQL("INSERT INTO student VALUES('" + editRollno.getText() + "','" + editName.getText() +
+                            "','" + editMarks.getText() + "');");
+                    showMessage("Success", "Record added");
                     clearText();
-                }
-            }
-            break;
-            case R.id.btnViewAll: {
-                Cursor c = db.rawQuery("SELECT * FROM student", null);
-                if (c.getCount() == 0) {
-                    showMessage("Error", "No records found");
-                    return;
-                }
-                StringBuffer buffer = new StringBuffer();
-                while (c.moveToNext()) {
-                    buffer.append("Rollno: " + c.getString(0) + "\n");
-                    buffer.append("Name: " + c.getString(1) + "\n");
-                    buffer.append("Marks: " + c.getString(2) + "\n\n");
-                }
-                showMessage("Student Details", buffer.toString());
-            }
-            break;
-            case R.id.btnShowInfo: {
-                showMessage("Demo Student Management Application", "Developed By Abrar Jahin");
-            }
-            break;
+                }break;
+            case R.id.btnDelete:
+                {
+                    if (editRollno.getText().toString().trim().length() == 0) {
+                        showMessage("Error", "Please enter Rollno");
+                        return;
+                    }
+                    Cursor c = db.rawQuery("SELECT * FROM student WHERE rollno='" + editRollno.getText() + "'", null);
+                    if (c.moveToFirst()) {
+                        db.execSQL("DELETE FROM student WHERE rollno='" + editRollno.getText() + "'");
+                        showMessage("Success", "Record Deleted");
+                    } else {
+                        showMessage("Error", "Invalid Rollno");
+                    }
+                    clearText();
+                }break;
+            case R.id.btnModify:
+                {
+                    if (editRollno.getText().toString().trim().length() == 0) {
+                        showMessage("Error", "Please enter Rollno");
+                        return;
+                    }
+                    Cursor c = db.rawQuery("SELECT * FROM student WHERE rollno='" + editRollno.getText() + "'", null);
+                    if (c.moveToFirst()) {
+                        db.execSQL("UPDATE student SET name='" + editName.getText() + "',marks='" + editMarks.getText() +
+                                "' WHERE rollno='" + editRollno.getText() + "'");
+                        showMessage("Success", "Record Modified");
+                    } else {
+                        showMessage("Error", "Invalid Rollno");
+                    }
+                    clearText();
+                }break;
+            case R.id.btnView:
+                {
+                    if (editRollno.getText().toString().trim().length() == 0) {
+                        showMessage("Error", "Please enter Rollno");
+                        return;
+                    }
+                    Cursor c = db.rawQuery("SELECT * FROM student WHERE rollno='" + editRollno.getText() + "'", null);
+                    if (c.moveToFirst()) {
+                        editName.setText(c.getString(1));
+                        editMarks.setText(c.getString(2));
+                    } else {
+                        showMessage("Error", "Invalid Rollno");
+                        clearText();
+                    }
+                }break;
+            case R.id.btnViewAll:
+                {
+                    Cursor c = db.rawQuery("SELECT * FROM student", null);
+                    if (c.getCount() == 0) {
+                        showMessage("Error", "No records found");
+                        return;
+                    }
+                    StringBuffer buffer = new StringBuffer();
+                    while (c.moveToNext()) {
+                        buffer.append("Rollno: " + c.getString(0) + "\n");
+                        buffer.append("Name: " + c.getString(1) + "\n");
+                        buffer.append("Marks: " + c.getString(2) + "\n\n");
+                    }
+                    showMessage("Student Details", buffer.toString());
+                }break;
+            case R.id.btnShowInfo:
+                {
+                    showMessage("Demo Student Management Application", "Developed By Abrar Jahin");
+                }break;
         }
     }
 
