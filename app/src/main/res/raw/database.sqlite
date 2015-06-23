@@ -1,0 +1,7 @@
+CREATE TABLE student(rollno VARCHAR,name VARCHAR,marks VARCHAR);
+INSERT INTO `student` (rollno,name,marks) VALUES ('1','asd','12'),
+ ('2','we','34'),
+ ('3','fgh','56'),
+ ('4','dfgh','12'),
+ ('5','ertesr','78'),
+ ('6','sdfgsdfgsdfg','45');
