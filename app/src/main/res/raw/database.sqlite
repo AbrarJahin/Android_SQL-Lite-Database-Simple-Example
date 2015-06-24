@@ -1,4 +1,8 @@
-CREATE TABLE student(rollno VARCHAR,name VARCHAR,marks VARCHAR);
+CREATE DATABASE IF NOT EXISTS `StudentDB`;
+USE `StudentDB`;
+
+CREATE TABLE IF NOT EXISTS student(rollno VARCHAR,name VARCHAR,marks VARCHAR);
+
 INSERT INTO `student` (rollno,name,marks) VALUES ('1','asd','12'),
  ('2','we','34'),
  ('3','fgh','56'),
